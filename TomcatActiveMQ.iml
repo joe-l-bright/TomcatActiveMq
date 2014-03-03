@@ -104,6 +104,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.jcraft:jsch:0.1.27" level="project" />
     <orderEntry type="library" name="Maven: org.sonatype.plexus:plexus-build-api:0.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.5" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.11.4" level="project" />
   </component>
 </module>
 

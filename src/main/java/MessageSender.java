@@ -1,5 +1,6 @@
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.ScheduledMessage;
 
 import javax.jms.*;
 
@@ -27,15 +28,22 @@ public class MessageSender {
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-            for (int x = 1; x < 500000; x++) {
+            for (int x = 1; x < 20; x++) {
                 // Create a messages
-                String text = message + x + "! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
+                String text = "Text" + x;
                 TextMessage textMessage = session.createTextMessage(text);
+                textMessage.setJMSType("Text Message");
 
                 // Tell the producer to send the message
                 System.out.println("Sent message: " + textMessage.getText());
                 producer.send(textMessage);
             }
+            // Create a message
+            TextMessage sessionMessage = session.createTextMessage("delayed");
+            sessionMessage.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, 5000);
+            sessionMessage.setJMSType("Regular Message");
+
+            producer.send(sessionMessage);
 
             // Clean up
             session.close();
