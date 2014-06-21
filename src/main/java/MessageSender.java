@@ -28,9 +28,9 @@ public class MessageSender {
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-            for (int x = 1; x < 20; x++) {
+            for (int x = 1; x < 1000000; x++) {
                 // Create a messages
-                String text = "Text" + x;
+                String text = "This is the text message number: " + x;
                 TextMessage textMessage = session.createTextMessage(text);
                 textMessage.setJMSType("Text Message");
 

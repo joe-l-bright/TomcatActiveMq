@@ -8,6 +8,7 @@ public class MessageReceiver implements ExceptionListener {
     private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 
     public MessageReceiver() {
+
         try {
             // Create a ConnectionFactory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);

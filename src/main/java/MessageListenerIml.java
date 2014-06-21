@@ -11,6 +11,19 @@ import java.util.Date;
  * Created by joe_l_bright on 3/2/14.
  */
 public class MessageListenerIml implements MessageListener {
+    private DBCollection table;
+
+    public MessageListenerIml() {
+        MongoClient mongo = null;
+        try {
+            mongo = new MongoClient("localhost", 27017);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        DB db = mongo.getDB("testdb");
+        table = db.getCollection("texts");
+    }
+
     @Override
     public void onMessage(Message message) {
 
@@ -33,16 +46,11 @@ public class MessageListenerIml implements MessageListener {
                 }
 
                 try {
-                    MongoClient mongo = new MongoClient("localhost", 27017);
-                    DB db = mongo.getDB("testdb");
-                    DBCollection table = db.getCollection("texts");
                     BasicDBObject document = new BasicDBObject();
                     document.put("text", text);
                     document.put("createdDate", new Date());
                     table.insert(document);
 
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
                 } catch (MongoException e) {
                     e.printStackTrace();
                 }
@@ -51,31 +59,23 @@ public class MessageListenerIml implements MessageListener {
             if (jmsType.equals("Regular Message")) {
                 System.out.println("Received Message: " + message);
 
-                try {
-                    MongoClient mongo = new MongoClient("localhost", 27017);
-                    DB db = mongo.getDB("testdb");
-                    DBCollection table = db.getCollection("texts");
-
-                    BasicDBObject searchQuery = new BasicDBObject();
-                    searchQuery.put("text", "Text1");
-                    DBCursor cursor = table.find(searchQuery);
-                    while (cursor.hasNext()) {
-                        System.out.println(cursor.next());
-                    }
-                    BasicDBObject query = new BasicDBObject();
-                    query.put("text", "Text1");
-                    BasicDBObject newDocument = new BasicDBObject();
-                    newDocument.put("text", "joe_l_bright-updated");
-                    BasicDBObject updateObj = new BasicDBObject();
-                    updateObj.put("$set", newDocument);
-                    table.update(query, updateObj);
-                    BasicDBObject searchQuery2 = new BasicDBObject().append("text", "joe_l_bright-updated");
-                    DBCursor cursor2 = table.find(searchQuery2);
-                    while (cursor2.hasNext()) {
-                        System.out.println(cursor2.next());
-                    }
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
+                BasicDBObject searchQuery = new BasicDBObject();
+                searchQuery.put("text", "Text1");
+                DBCursor cursor = table.find(searchQuery);
+                while (cursor.hasNext()) {
+                    System.out.println(cursor.next());
+                }
+                BasicDBObject query = new BasicDBObject();
+                query.put("text", "Text1");
+                BasicDBObject newDocument = new BasicDBObject();
+                newDocument.put("text", "joe_l_bright-updated");
+                BasicDBObject updateObj = new BasicDBObject();
+                updateObj.put("$set", newDocument);
+                table.update(query, updateObj);
+                BasicDBObject searchQuery2 = new BasicDBObject().append("text", "joe_l_bright-updated");
+                DBCursor cursor2 = table.find(searchQuery2);
+                while (cursor2.hasNext()) {
+                    System.out.println(cursor2.next());
                 }
             }
         }
