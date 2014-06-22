@@ -1,7 +1,4 @@
 
-import org.apache.catalina.User;
-import org.apache.catalina.users.MemoryUser;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +16,8 @@ public class SenderController extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
-            throws ServletException, IOException {
+                       HttpServletResponse response)
+    throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -46,7 +43,7 @@ public class SenderController extends HttpServlet {
                 "<form method=\"post\">\n" +
                 "    <input type=\"text\" name=\"username\">\n" +
                 "    <input type=\"password\" name=\"password\">\n" +
-                "    <input type=\"submit\" value=\"login\">\n"+
+                "    <input type=\"submit\" value=\"login\">\n" +
                 "</form>");
     }
 

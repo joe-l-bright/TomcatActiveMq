@@ -35,7 +35,6 @@ public class MessageSender {
                 textMessage.setJMSType("Text Message");
 
                 // Tell the producer to send the message
-                System.out.println("Sent message: " + textMessage.getText());
                 producer.send(textMessage);
             }
             // Create a message

@@ -24,4 +24,18 @@ http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
         <servlet-name>Servlet Name For Receiver</servlet-name>
         <url-pattern>/receiver</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Servlet Name For Mongo Reader</servlet-name>
+        <servlet-class>MongoReaderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Servlet Name For Mongo Reader</servlet-name>
+        <url-pattern>/mongoRead</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Servlet Name For Mongo Reader</servlet-name>
+        <url-pattern>/mongoRead/list</url-pattern>
+    </servlet-mapping>
 </web-app>
